@@ -4,7 +4,7 @@ import { MessageSquare } from "lucide-react";
 
 export default function FloatingWhatsApp() {
   const whatsappUrl =
-    "https://wa.me/923001122782?text=Hi%20Musaddaq,%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20new%20project!";
+    "https://wa.me/923111122125?text=Hi%20Musaddaq,%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20new%20project!";
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">

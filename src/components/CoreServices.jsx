@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingCart, Monitor, Globe, Server, Check, ArrowRight, ShieldCheck, Zap, Calculator, BellRing } from "lucide-react";
+import { ShoppingCart, Monitor, Globe, Server, Check, ArrowRight, Zap } from "lucide-react";
 
 export default function CoreServices() {
   const coreServices = [
@@ -23,7 +23,7 @@ export default function CoreServices() {
     },
     {
       id: "offline-desktop-pos",
-      title: "Offline Desktop Softwares & POS",
+      title: "Offline Desktop Software & POS",
       badge: "100% Offline Ready",
       icon: Monitor,
       color: "from-emerald-500 via-teal-500 to-cyan-600",

@@ -7,43 +7,48 @@ export default function DynamicCostEstimator() {
   const [projectType, setProjectType] = useState("ecommerce");
   const [selectedFeatures, setSelectedFeatures] = useState(["installment", "whatsapp", "admin"]);
   const [timeline, setTimeline] = useState("standard");
+  const [currency, setCurrency] = useState("PKR");
 
   const projectTypes = [
     {
       id: "ecommerce",
       name: "E-Commerce Store",
+      basePriceUSD: 280,
       basePricePKR: 78000,
       baseDays: 7,
-      desc: "Full Next.js online store with cart, order checkout, & admin panel.",
+      desc: "Full Next.js online store with cart, installment calculator, & admin panel.",
     },
     {
       id: "desktop",
       name: "Offline Desktop Software",
+      basePriceUSD: 350,
       basePricePKR: 98000,
       baseDays: 10,
-      desc: "100% Offline Electron.js + SQLite POS & inventory software.",
+      desc: "100% Offline Electron.js + SQLite POS & customer credit ledger.",
     },
     {
       id: "business",
-      name: "Business Website",
+      name: "Corporate / Business Site",
+      basePriceUSD: 180,
       basePricePKR: 50000,
       baseDays: 4,
-      desc: "Fast Next.js agency or company portfolio website.",
+      desc: "Fast Next.js company portfolio or lead generation website.",
     },
     {
       id: "custom",
       name: "Custom Web Application",
+      basePriceUSD: 400,
       basePricePKR: 112000,
       baseDays: 12,
-      desc: "Tailored SaaS, internal portal, or complex database web system.",
+      desc: "Tailored SaaS, internal dispatch portal, or multi-user database system.",
     },
   ];
 
   const addOnFeatures = [
-    { id: "installment", name: "Installment Calculator", pricePKR: 16800, days: 2 },
-    { id: "whatsapp", name: "WhatsApp API Integration", pricePKR: 14000, days: 1 },
-    { id: "admin", name: "Custom Admin Panel", pricePKR: 19600, days: 2 },
-    { id: "vps", name: "VPS Deployment Setup", pricePKR: 11200, days: 1 },
+    { id: "installment", name: "Installment Calculator Engine", priceUSD: 60, pricePKR: 16800, days: 2 },
+    { id: "whatsapp", name: "WhatsApp Order API Integration", priceUSD: 50, pricePKR: 14000, days: 1 },
+    { id: "admin", name: "Custom Admin Analytics Panel", priceUSD: 70, pricePKR: 19600, days: 2 },
+    { id: "vps", name: "Linux VPS Deployment & SSL", priceUSD: 40, pricePKR: 11200, days: 1 },
   ];
 
   const toggleFeature = (id) => {
@@ -56,18 +61,21 @@ export default function DynamicCostEstimator() {
 
   const selectedTypeObj = projectTypes.find((p) => p.id === projectType);
 
+  let totalPriceUSD = selectedTypeObj ? selectedTypeObj.basePriceUSD : 0;
   let totalPricePKR = selectedTypeObj ? selectedTypeObj.basePricePKR : 0;
   let totalDays = selectedTypeObj ? selectedTypeObj.baseDays : 0;
 
   selectedFeatures.forEach((featId) => {
     const feat = addOnFeatures.find((f) => f.id === featId);
     if (feat) {
+      totalPriceUSD += feat.priceUSD;
       totalPricePKR += feat.pricePKR;
       totalDays += feat.days;
     }
   });
 
   if (timeline === "express") {
+    totalPriceUSD += 75;
     totalPricePKR += 21000;
     totalDays = Math.max(3, Math.round(totalDays * 0.55));
   }
@@ -77,63 +85,90 @@ export default function DynamicCostEstimator() {
     .filter(Boolean)
     .join(", ");
 
-  const waText = `Hi Musaddaq! I generated an estimate on your website:
-- Project Type: ${selectedTypeObj?.name}
-- Add-on Features: ${selectedFeatureNames || "Basic"}
-- Timeline Preference: ${timeline === "express" ? "Express Delivery (3-5 Days)" : "Standard Delivery (1-2 Weeks)"}
-- Estimated Price: Rs ${totalPricePKR.toLocaleString()} PKR
-- Est. Timeline: ~${totalDays} Days
+  const waText = `Hi Musaddaq! I generated a project estimate:
+- Category: ${selectedTypeObj?.name}
+- Add-ons: ${selectedFeatureNames || "Standard"}
+- Timeline: ${timeline === "express" ? "Express (3-5 Days)" : "Standard (1-2 Weeks)"}
+- Estimated Quote: ${currency === "USD" ? `$${totalPriceUSD} USD` : `Rs ${totalPricePKR.toLocaleString()} PKR`}
+- Est. Timeline: ~${totalDays} Business Days
 Let's confirm and start this project!`;
 
-  const whatsappRedirectUrl = `https://wa.me/923001122782?text=${encodeURIComponent(waText)}`;
+  const whatsappRedirectUrl = `https://wa.me/923111122125?text=${encodeURIComponent(waText)}`;
 
   return (
     <section id="estimator" className="py-24 bg-[#0B0F17] relative border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-4">
             <Calculator className="w-3.5 h-3.5" />
-            <span>Interactive Cost &amp; Time Estimator</span>
+            <span>Interactive Cost Estimator</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Calculate Your Project Quote &amp; Timeline
+            Project Cost &amp; Timeline Estimator
           </h2>
           <p className="text-slate-400 text-base sm:text-lg">
-            Select your project requirements below to get an instant real-time price estimate in Rupees (Rs) and delivery timeframe.
+            Configure your project parameters to calculate a real-time price estimate and delivery timeframe.
           </p>
         </div>
 
-        {/* Main Grid Layout */}
+        {/* Form & Summary */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Form Selectors */}
-          <div className="lg:col-span-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl space-y-8">
+          {/* Selectors Area */}
+          <div className="lg:col-span-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8">
             
+            {/* Currency Toggle */}
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <span className="text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider">
+                Currency Display:
+              </span>
+              <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                <button
+                  onClick={() => setCurrency("PKR")}
+                  className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all ${
+                    currency === "PKR" ? "bg-emerald-500 text-slate-950 shadow" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  Rs PKR
+                </button>
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all ${
+                    currency === "USD" ? "bg-cyan-500 text-slate-950 shadow" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  $ USD
+                </button>
+              </div>
+            </div>
+
             {/* Selector A: Project Type */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
-                a) Select Project Type
+                1. Select Project Category
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {projectTypes.map((type) => {
                   const isSelected = projectType === type.id;
+                  const priceLabel =
+                    currency === "USD"
+                      ? `$${type.basePriceUSD} USD`
+                      : `Rs ${type.basePricePKR.toLocaleString()} PKR`;
                   return (
                     <button
                       key={type.id}
                       onClick={() => setProjectType(type.id)}
                       className={`p-4 rounded-xl border text-left transition-all ${
                         isSelected
-                          ? "bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-emerald-400 text-white font-semibold shadow-lg shadow-emerald-500/10"
-                          : "bg-slate-950/70 border-slate-800 text-slate-300 hover:border-slate-700"
+                          ? "bg-slate-800 border-cyan-400 text-white font-semibold shadow-md"
+                          : "bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700"
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-bold">{type.name}</span>
-                        <span className="text-xs font-mono text-emerald-400 font-bold">
-                          Rs {type.basePricePKR.toLocaleString()}
-                        </span>
+                        <span className="text-xs font-mono text-emerald-400 font-bold">{priceLabel}</span>
                       </div>
                       <p className="text-xs text-slate-400 leading-normal">{type.desc}</p>
                     </button>
@@ -145,19 +180,23 @@ Let's confirm and start this project!`;
             {/* Selector B: Add-on Features */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
-                b) Select Required Add-on Features
+                2. Select Required Add-on Modules
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {addOnFeatures.map((feat) => {
                   const isChecked = selectedFeatures.includes(feat.id);
+                  const featPriceLabel =
+                    currency === "USD"
+                      ? `+$${feat.priceUSD} USD`
+                      : `+Rs ${feat.pricePKR.toLocaleString()} PKR`;
                   return (
                     <button
                       key={feat.id}
                       onClick={() => toggleFeature(feat.id)}
                       className={`p-4 rounded-xl border text-left transition-all flex items-start gap-3 ${
                         isChecked
-                          ? "bg-slate-800/90 border-emerald-500/70 text-white"
-                          : "bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700"
+                          ? "bg-slate-800 border-emerald-500/80 text-white"
+                          : "bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700"
                       }`}
                     >
                       <div
@@ -171,9 +210,7 @@ Let's confirm and start this project!`;
                       </div>
                       <div className="flex-1">
                         <span className="text-xs font-semibold text-slate-200 block">{feat.name}</span>
-                        <span className="text-[11px] font-mono text-emerald-400">
-                          +Rs {feat.pricePKR.toLocaleString()}
-                        </span>
+                        <span className="text-[11px] font-mono text-emerald-400">{featPriceLabel}</span>
                       </div>
                     </button>
                   );
@@ -181,22 +218,22 @@ Let's confirm and start this project!`;
               </div>
             </div>
 
-            {/* Selector C: Timeline Preference */}
+            {/* Selector C: Delivery Speed */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
-                c) Timeline Preference
+                3. Delivery Timeline Speed
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <button
                   onClick={() => setTimeline("standard")}
                   className={`p-4 rounded-xl border text-left transition-all ${
                     timeline === "standard"
-                      ? "bg-slate-800 border-emerald-400 text-white font-semibold"
-                      : "bg-slate-950/70 border-slate-800 text-slate-400"
+                      ? "bg-slate-800 border-cyan-400 text-white font-semibold"
+                      : "bg-slate-950 border-slate-800 text-slate-400"
                   }`}
                 >
                   <div className="text-xs font-bold text-slate-200 mb-0.5">Standard Delivery (1-2 Weeks)</div>
-                  <div className="text-[11px] text-slate-400">Regular pace testing &amp; deployment schedule</div>
+                  <div className="text-[11px] text-slate-400">Regular pace QA testing &amp; deployment schedule</div>
                 </button>
 
                 <button
@@ -204,67 +241,69 @@ Let's confirm and start this project!`;
                   className={`p-4 rounded-xl border text-left transition-all ${
                     timeline === "express"
                       ? "bg-amber-500/10 border-amber-400 text-white font-semibold"
-                      : "bg-slate-950/70 border-slate-800 text-slate-400"
+                      : "bg-slate-950 border-slate-800 text-slate-400"
                   }`}
                 >
                   <div className="flex items-center gap-1 text-xs font-bold text-amber-400 mb-0.5">
-                    <Zap className="w-3.5 h-3.5" /> Express Delivery (3-5 Days)
+                    <Zap className="w-3.5 h-3.5" /> Express Priority (3-5 Days)
                   </div>
-                  <div className="text-[11px] text-slate-400">Priority rapid execution (+ Rs 21,000)</div>
+                  <div className="text-[11px] text-slate-400">
+                    Priority rapid execution ({currency === "USD" ? "+ $75 USD" : "+ Rs 21,000 PKR"})
+                  </div>
                 </button>
               </div>
             </div>
 
           </div>
 
-          {/* Right Price Card Summary */}
-          <div className="lg:col-span-4 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl sticky top-24">
+          {/* Right Live Estimate Card */}
+          <div className="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl sticky top-24">
             <h3 className="text-lg font-bold text-white mb-6 border-b border-slate-800 pb-4">
-              Live Quote &amp; Timeline
+              Estimated Total &amp; Timeline
             </h3>
 
             <div className="space-y-3.5 mb-8 text-xs text-slate-300">
               <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
-                <span className="text-slate-400">Category:</span>
+                <span className="text-slate-400">Selected Category:</span>
                 <span className="font-bold text-cyan-400">{selectedTypeObj?.name}</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
-                <span className="text-slate-400">Add-on Features:</span>
-                <span className="font-mono text-emerald-400">{selectedFeatures.length} Selected</span>
+                <span className="text-slate-400">Add-on Modules:</span>
+                <span className="font-mono text-emerald-400">{selectedFeatures.length} Active</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
-                <span className="text-slate-400">Timeline:</span>
+                <span className="text-slate-400">Delivery Speed:</span>
                 <span className="font-mono text-amber-400">
                   {timeline === "express" ? "Express (3-5 Days)" : "Standard (1-2 Weeks)"}
                 </span>
               </div>
             </div>
 
-            {/* Display Real-time Cost in Rupees (Rs) */}
-            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800/90 mb-8 text-center shadow-inner">
+            {/* Calculated Quote Box */}
+            <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 mb-8 text-center">
               <span className="text-[11px] font-mono text-slate-400 block mb-1 uppercase tracking-wider">
                 Estimated Total Quote
               </span>
               
-              <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mb-3">
-                Rs {totalPricePKR.toLocaleString()} <span className="text-xs text-slate-400 font-normal">PKR</span>
+              <div className="text-3xl font-extrabold text-emerald-400 font-mono mb-2">
+                {currency === "USD" ? `$${totalPriceUSD} USD` : `Rs ${totalPricePKR.toLocaleString()} PKR`}
               </div>
 
               <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
                 <Clock className="w-3.5 h-3.5" />
-                <span>Delivery: ~{totalDays} Business Days</span>
+                <span>Est. Delivery: ~{totalDays} Days</span>
               </div>
             </div>
 
-            {/* WhatsApp Booking Button */}
+            {/* WhatsApp CTA */}
             <a
               href={whatsappRedirectUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg transition-colors flex items-center justify-center gap-2"
             >
               <MessageSquare className="w-4.5 h-4.5 fill-slate-950" />
-              <span>Book This Project on WhatsApp</span>
+              <span>Confirm Quote on WhatsApp</span>
             </a>
           </div>
 

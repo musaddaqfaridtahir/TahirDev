@@ -38,7 +38,7 @@ export default function ServicesPreview() {
     },
     {
       id: "desktop",
-      title: "Offline Desktop POS & Softwares",
+      title: "Offline Desktop Software & POS",
       tagline: "100% Reliable Local Business Apps",
       icon: Monitor,
       color: "from-emerald-500 to-teal-500",

@@ -51,7 +51,7 @@ export default function WorkProcess() {
     },
   ];
 
-  const whatsappUrl = "https://wa.me/923001122782?text=Hi%20Musaddaq,%20I%20want%20to%20start%20Step%201%20Planning%20for%20my%20project!";
+  const whatsappUrl = "https://wa.me/923111122125?text=Hi%20Musaddaq,%20I%20want%20to%20start%20Step%201%20Planning%20for%20my%20project!";
 
   return (
     <section id="process" className="py-24 bg-[#0B0F17] relative border-t border-slate-800/80">
