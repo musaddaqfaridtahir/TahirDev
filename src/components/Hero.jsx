@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { MessageSquare, ArrowRight, Terminal, Globe, ShieldCheck, ShoppingBag, Monitor } from "lucide-react";
+import { siteConfig } from "@/config/siteConfig";
 
 export default function Hero() {
   const [typingIndex, setTypingIndex] = useState(0);
@@ -9,14 +11,12 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeTab, setActiveTab] = useState("web");
 
-  // Shorter, punchy developer titles
   const phrases = [
     "Full-Stack Next.js Developer",
     "Offline Desktop POS Specialist",
     "Custom E-Commerce Software Builder",
   ];
 
-  // VS Code style fast, smooth typing effect
   useEffect(() => {
     const currentPhrase = phrases[typingIndex];
     const typingSpeed = isDeleting ? 30 : 60;
@@ -59,8 +59,6 @@ const musaddaqStack = {
 };`,
   };
 
-  const whatsappUrl = "https://wa.me/923111122125?text=Hi%20Musaddaq,%20I%20saw%20your%20portfolio%20and%20want%20to%20discuss%20a%20project!";
-
   const highlights = [
     { title: "Retail E-Commerce Engines", desc: "Next.js online stores with custom monthly installment calculators and WhatsApp checkout.", icon: ShoppingBag },
     { title: "Offline Desktop POS Software", desc: "100% offline Electron.js + SQLite applications for local store credit ledgers and thermal printing.", icon: Monitor },
@@ -94,39 +92,36 @@ const musaddaqStack = {
               <span className="text-cyan-400">Custom Business Software</span> Builder
             </h1>
 
-            {/* VS Code Style Compact Typing Pill & Cursor */}
+            {/* VS Code Style Compact Typing Pill */}
             <div className="mb-6">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono shadow-inner">
                 <span className="text-cyan-400 font-bold">$</span>
                 <span className="text-slate-200 font-medium">{displayText}</span>
-                {/* VS Code Blinking Vertical Bar Cursor */}
                 <span className="w-[2px] h-3.5 bg-cyan-400 animate-pulse ml-0.5" />
               </div>
             </div>
 
             <p className="text-slate-400 text-sm sm:text-base mb-8 max-w-2xl leading-relaxed">
-              Hi, I&apos;m <strong className="text-slate-200">Musaddaq Farid Tahir</strong> — building high-converting Next.js web applications, retail e-commerce stores with installment engines, and 100% offline desktop POS software.
+              Hi, I&apos;m <strong className="text-slate-200">{siteConfig.name}</strong> — building high-converting Next.js web applications, retail e-commerce stores with installment engines, and 100% offline desktop POS software.
             </p>
 
             {/* Primary Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
-              <a
-                href="#portfolio"
+              <Link
+                href="/projects"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-lg transition-all"
               >
                 <span>View Case Studies</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 text-slate-200 hover:text-white font-semibold text-xs transition-all"
               >
                 <MessageSquare className="w-4 h-4 text-emerald-400" />
-                <span>Discuss Project on WhatsApp</span>
-              </a>
+                <span>Get In Touch</span>
+              </Link>
             </div>
 
           </div>

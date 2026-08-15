@@ -1,11 +1,9 @@
 "use client";
 
 import { MessageSquare } from "lucide-react";
+import { siteConfig } from "@/config/siteConfig";
 
 export default function FloatingWhatsApp() {
-  const whatsappUrl =
-    "https://wa.me/923111122125?text=Hi%20Musaddaq,%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20new%20project!";
-
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
       {/* Tooltip badge */}
@@ -17,9 +15,9 @@ export default function FloatingWhatsApp() {
         <span>Chat on WhatsApp</span>
       </div>
 
-      {/* Floating Button */}
+      {/* Floating Trigger Button */}
       <a
-        href={whatsappUrl}
+        href={siteConfig.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
