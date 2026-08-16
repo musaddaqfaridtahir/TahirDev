@@ -25,36 +25,36 @@ export default function ContactSection() {
   const directWaUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${whatsappDirectMsg}`;
 
   return (
-    <section id="contact" className="py-24 bg-[#0B0F17] relative border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-20 bg-[#0B0F17] relative border-t border-slate-800/80">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Direct Communication</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Discuss Your Project Scope
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            Start a Technical Discussion
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg">
-            Have a project brief ready or want to discuss custom software development? Reach out directly via phone, WhatsApp, or the inquiry form.
+          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            Have a project requirement or software specification? Connect directly via phone, WhatsApp, or the inquiry form.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
           
           {/* Left Direct Contact Methods */}
-          <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-8 shadow-xl">
+          <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 sm:space-y-8 shadow-xl">
             <div>
-              <h3 className="text-xl font-bold text-white mb-2">Direct Contact Lines</h3>
+              <h3 className="text-xl font-bold text-white mb-2">Primary Contact Lines</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Connect directly for instant project estimates, technical consultations, or scope discussions.
               </p>
             </div>
 
             <div className="space-y-4">
-              {/* Native Phone Line */}
+              {/* Native Mobile Phone Dialing Link */}
               <a
                 href={siteConfig.telLink}
                 className="flex items-center gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 transition-colors group"
@@ -106,8 +106,8 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right Clean Responsive Inquiry Form */}
-          <div className="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
+          {/* Right Clean Responsive Form */}
+          <div className="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
             {submitted ? (
               <div className="text-center py-12 space-y-6 animate-in fade-in duration-300">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-400 text-emerald-400 mx-auto flex items-center justify-center">
@@ -128,10 +128,9 @@ export default function ContactSection() {
                 </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                 <h3 className="text-xl font-bold text-white mb-4">Send a Project Inquiry</h3>
 
-                {/* Name */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">Your Full Name *</label>
                   <div className="relative">
@@ -147,7 +146,6 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                {/* Contact Info */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">Email or Phone / WhatsApp *</label>
                   <div className="relative">
@@ -163,7 +161,6 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                {/* Service Category */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">Required Service Category</label>
                   <select
@@ -178,7 +175,6 @@ export default function ContactSection() {
                   </select>
                 </div>
 
-                {/* Message */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">Project Scope &amp; Details</label>
                   <div className="relative">

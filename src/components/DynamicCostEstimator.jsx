@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Calculator, CheckCircle2, MessageSquare, Clock, Zap } from "lucide-react";
+import { siteConfig } from "@/config/siteConfig";
 
 export default function DynamicCostEstimator() {
   const [projectType, setProjectType] = useState("ecommerce");
@@ -93,30 +94,30 @@ export default function DynamicCostEstimator() {
 - Est. Timeline: ~${totalDays} Business Days
 Let's confirm and start this project!`;
 
-  const whatsappRedirectUrl = `https://wa.me/923111122125?text=${encodeURIComponent(waText)}`;
+  const whatsappRedirectUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(waText)}`;
 
   return (
-    <section id="estimator" className="py-24 bg-[#0B0F17] relative border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="estimator" className="py-20 bg-[#0B0F17] relative border-t border-slate-800/80">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-4">
             <Calculator className="w-3.5 h-3.5" />
             <span>Interactive Cost Estimator</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Project Cost &amp; Timeline Estimator
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            Project Cost &amp; Delivery Timeline
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg">
+          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
             Configure your project parameters to calculate a real-time price estimate and delivery timeframe.
           </p>
         </div>
 
-        {/* Form & Summary */}
+        {/* Form & Live Summary */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Selectors Area */}
+          {/* Left Selectors */}
           <div className="lg:col-span-8 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8">
             
             {/* Currency Toggle */}
@@ -144,7 +145,7 @@ Let's confirm and start this project!`;
               </div>
             </div>
 
-            {/* Selector A: Project Type */}
+            {/* Selector 1: Category */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
                 1. Select Project Category
@@ -177,10 +178,10 @@ Let's confirm and start this project!`;
               </div>
             </div>
 
-            {/* Selector B: Add-on Features */}
+            {/* Selector 2: Modules */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
-                2. Select Required Add-on Modules
+                2. Select Add-on Modules
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {addOnFeatures.map((feat) => {
@@ -218,7 +219,7 @@ Let's confirm and start this project!`;
               </div>
             </div>
 
-            {/* Selector C: Delivery Speed */}
+            {/* Selector 3: Timeline */}
             <div>
               <label className="block text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3 font-bold">
                 3. Delivery Timeline Speed
@@ -259,12 +260,12 @@ Let's confirm and start this project!`;
           {/* Right Live Estimate Card */}
           <div className="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl sticky top-24">
             <h3 className="text-lg font-bold text-white mb-6 border-b border-slate-800 pb-4">
-              Estimated Total &amp; Timeline
+              Quote Summary
             </h3>
 
             <div className="space-y-3.5 mb-8 text-xs text-slate-300">
               <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
-                <span className="text-slate-400">Selected Category:</span>
+                <span className="text-slate-400">Category:</span>
                 <span className="font-bold text-cyan-400">{selectedTypeObj?.name}</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
@@ -279,7 +280,7 @@ Let's confirm and start this project!`;
               </div>
             </div>
 
-            {/* Calculated Quote Box */}
+            {/* Calculated Box */}
             <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 mb-8 text-center">
               <span className="text-[11px] font-mono text-slate-400 block mb-1 uppercase tracking-wider">
                 Estimated Total Quote
@@ -291,11 +292,11 @@ Let's confirm and start this project!`;
 
               <div className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
                 <Clock className="w-3.5 h-3.5" />
-                <span>Est. Delivery: ~{totalDays} Days</span>
+                <span>Est. Delivery: ~{totalDays} Business Days</span>
               </div>
             </div>
 
-            {/* WhatsApp CTA */}
+            {/* Confirm CTA */}
             <a
               href={whatsappRedirectUrl}
               target="_blank"
