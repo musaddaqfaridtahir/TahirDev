@@ -8,9 +8,10 @@ export const siteConfig = {
   phone: "+923111122125",
   formattedPhone: "+92 311 1122125",
   telLink: "tel:+923111122125",
+  whatsappNumber: "923111122125",
   whatsappUrl: "https://wa.me/923111122125?text=Hi%20Musaddaq,%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20new%20project!",
   githubUrl: "https://github.com/musaddaqfaridtahir",
-  linkedinUrl: "https://linkedin.com",
+  linkedinUrl: "https://www.linkedin.com/in/musaddaqfaridtahir",
   location: "Pakistan",
 
   navLinks: [

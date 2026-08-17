@@ -82,7 +82,7 @@ export default function AboutPage() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <a
-              href={siteConfig.telLink}
+              href="tel:+923111122125"
               className="py-3 px-5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-mono text-xs flex items-center gap-2"
             >
               <Phone className="w-4 h-4 text-cyan-400" />

@@ -22,7 +22,7 @@ export default function ContactSection() {
   const whatsappDirectMsg = encodeURIComponent(
     `Hi Musaddaq!\nMy Name: ${formData.name || "Client"}\nContact: ${formData.contactInfo}\nProject: ${formData.projectType}\nDetails: ${formData.message}`
   );
-  const directWaUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${whatsappDirectMsg}`;
+  const directWaUrl = `https://wa.me/923111122125?text=${whatsappDirectMsg}`;
 
   return (
     <section id="contact" className="py-20 bg-[#0B0F17] relative border-t border-slate-800/80">
@@ -54,9 +54,9 @@ export default function ContactSection() {
             </div>
 
             <div className="space-y-4">
-              {/* Native Mobile Phone Dialing Link */}
+              {/* Native Mobile Phone Dialing Link (Hardcoded href="tel:+923111122125") */}
               <a
-                href={siteConfig.telLink}
+                href="tel:+923111122125"
                 className="flex items-center gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 transition-colors group"
               >
                 <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
@@ -65,14 +65,14 @@ export default function ContactSection() {
                 <div>
                   <span className="text-[10px] font-mono text-slate-400 block uppercase">Primary Phone Line</span>
                   <span className="text-base font-mono font-bold text-white group-hover:text-cyan-400 transition-colors">
-                    {siteConfig.formattedPhone}
+                    +92 311 1122125
                   </span>
                 </div>
               </a>
 
               {/* WhatsApp Direct */}
               <a
-                href={siteConfig.whatsappUrl}
+                href="https://wa.me/923111122125"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 transition-colors group"
@@ -83,7 +83,7 @@ export default function ContactSection() {
                 <div>
                   <span className="text-[10px] font-mono text-slate-400 block uppercase">WhatsApp Direct Line</span>
                   <span className="text-base font-mono font-bold text-white group-hover:text-emerald-400 transition-colors">
-                    {siteConfig.formattedPhone}
+                    +92 311 1122125
                   </span>
                 </div>
               </a>
@@ -124,7 +124,7 @@ export default function ContactSection() {
                   className="inline-flex items-center gap-2 py-4 px-8 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg transition-colors"
                 >
                   <MessageSquare className="w-4.5 h-4.5 fill-slate-950" />
-                  <span>Send Form Details to WhatsApp ({siteConfig.formattedPhone})</span>
+                  <span>Send Form Details to WhatsApp (+92 311 1122125)</span>
                 </a>
               </div>
             ) : (

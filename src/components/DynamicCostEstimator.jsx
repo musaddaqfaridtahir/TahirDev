@@ -94,7 +94,8 @@ export default function DynamicCostEstimator() {
 - Est. Timeline: ~${totalDays} Business Days
 Let's confirm and start this project!`;
 
-  const whatsappRedirectUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(waText)}`;
+  // Hardcoded verified phone number to guarantee https://wa.me/923111122125?text=...
+  const whatsappRedirectUrl = `https://wa.me/923111122125?text=${encodeURIComponent(waText)}`;
 
   return (
     <section id="estimator" className="py-20 bg-[#0B0F17] relative border-t border-slate-800/80">

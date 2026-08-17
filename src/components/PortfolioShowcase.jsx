@@ -31,6 +31,8 @@ export default function PortfolioShowcase() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {siteConfig.projects.map((project, idx) => {
             const Icon = icons[idx % icons.length];
+            const isHttpDemo = project.demoUrl.startsWith("http");
+
             return (
               <div
                 key={project.id}
@@ -78,7 +80,7 @@ export default function PortfolioShowcase() {
                   </div>
                 </div>
 
-                {/* Clean Card Actions (No phone or whatsapp spam inside cards) */}
+                {/* Card Actions */}
                 <div className="flex items-center gap-3 pt-4 border-t border-slate-800/80">
                   <button
                     onClick={() => setSelectedProject(project)}
@@ -88,7 +90,7 @@ export default function PortfolioShowcase() {
                     <ChevronRight className="w-3.5 h-3.5 text-cyan-400" />
                   </button>
 
-                  {project.demoUrl.startsWith("http") && (
+                  {isHttpDemo ? (
                     <a
                       href={project.demoUrl}
                       target="_blank"
@@ -98,6 +100,14 @@ export default function PortfolioShowcase() {
                       <span>Live Demo</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
+                  ) : (
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors"
+                    >
+                      <span>View Details</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </button>
                   )}
                 </div>
               </div>
@@ -181,8 +191,8 @@ export default function PortfolioShowcase() {
                 </div>
               </div>
 
-              {selectedProject.demoUrl.startsWith("http") && (
-                <div className="pt-6 border-t border-slate-800">
+              <div className="pt-6 border-t border-slate-800">
+                {selectedProject.demoUrl.startsWith("http") ? (
                   <a
                     href={selectedProject.demoUrl}
                     target="_blank"
@@ -192,8 +202,18 @@ export default function PortfolioShowcase() {
                     <span>Open Live Production Application</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </a>
-                </div>
-              )}
+                ) : (
+                  <a
+                    href={siteConfig.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-6 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm text-center shadow-lg transition-colors flex items-center justify-center gap-2"
+                  >
+                    <span>Explore GitHub Repository</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
 
             </div>
           </div>
